@@ -32,13 +32,13 @@ const CreatePost = () => {
         // Predefined structure for prompt
         const modifiedPrompt = `A dynamic comic-style illustration featuring ${form.prompt}. The characters should have expressive facial expressions, bold outlines, and vibrant colors. The background should be detailed yet not overpowering, keeping the focus on the main action. The lighting should be dramatic, with strong contrasts and shading. The overall composition should have a sense of movement and storytelling, making it visually engaging and exciting.`;
 
-        const response = await fetch('http://localhost:8080/api/v1/dalle', {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/dalle`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            prompt: modifiedPrompt, // Use the modified prompt
+            prompt: modifiedPrompt,
           }),
         });
 
@@ -54,14 +54,13 @@ const CreatePost = () => {
     }
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (form.prompt && form.photo) {
       setLoading(true);
       try {
-        const response = await fetch('http://localhost:8080/api/v1/post', {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/post`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
